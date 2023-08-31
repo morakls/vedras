@@ -44,7 +44,7 @@
             <div class="main__content__wrap">
                 <NuxtLink ref="postContainer" class="main__content__wrap__link" v-for="user in users" :key="user.id"
                     :to="`/user/${user.id}`">
-                    <div @contextmenu.prevent="openContextMenu(user.id)">
+                    <div>
                         <img :src="user.picture" alt="User Picture" class="main__content__wrap__link__img">
                         <div class="main__content__wrap__link__textWrap">
                             <p class="main__content__wrap__link__textWrap__text">{{ user.firstName }} {{ user.lastName }}
