@@ -42,14 +42,31 @@
         </div>
         <div class="main__content" v-else>
             <div class="main__content__wrap">
-                <NuxtLink class="main__content__wrap__link" v-for="user in users" :key="user.id" :to="`/user/${user.id}`">
-                    <img :src="user.picture" alt="User Picture" class="main__content__wrap__link__img">
-                    <div class="main__content__wrap__link__textWrap">
-                        <p class="main__content__wrap__link__textWrap__text">{{ user.firstName }} {{ user.lastName }}</p>
+                <NuxtLink ref="postContainer" class="main__content__wrap__link" v-for="user in users" :key="user.id"
+                    :to="`/user/${user.id}`">
+                    <div @contextmenu.prevent="openContextMenu(user.id)">
+                        <img :src="user.picture" alt="User Picture" class="main__content__wrap__link__img">
+                        <div class="main__content__wrap__link__textWrap">
+                            <p class="main__content__wrap__link__textWrap__text">{{ user.firstName }} {{ user.lastName }}
+                            </p>
+                        </div>
                     </div>
                 </NuxtLink>
             </div>
         </div>
+        <section class="main__addUser">
+            <div class="main__addUser__wrap">
+                <form @submit.prevent="addNewUser" class="main__addUser__wrap__form">
+                    <label class="main__addUser__wrap__form__firstNameLabel" for="newFirstName">First Name:</label>
+                    <input class="main__addUser__wrap__form__firstNameInput" type="text" id="newFirstName" v-model="newFirstName" required><br>
+                    <label class="main__addUser__wrap__form__lastNameLabel" for="newLastName">Last Name:</label>
+                    <input class="main__addUser__wrap__form__lastNameInput" type="text" id="newLastName" v-model="newLastName" required><br>
+                    <label class="main__addUser__wrap__form__imgLabel" for="newImage">Image URL:</label>
+                    <input class="main__addUser__wrap__form__imgInput" type="text" id="newImage" v-model="newImage" required><br>
+                    <button class="main__addUser__wrap__form__submit" type="submit">Add User</button>
+                </form>
+            </div>
+        </section>
     </main>
 </template>
 
@@ -74,6 +91,24 @@ onMounted(async () => {
         console.error('Error fetching data:', error);
     }
 });
+
+let newFirstName = ref('');
+let newLastName = ref('');
+let newImage = ref('');
+
+let addNewUser = () => {
+    let newUser = {
+        id: Date.now(),
+        firstName: newFirstName.value,
+        lastName: newLastName.value,
+        picture: newImage.value
+    };
+    users.value.push(newUser);
+
+    newFirstName.value = '';
+    newLastName.value = '';
+    newImage.value = '';
+};
 
 </script>
 
@@ -126,7 +161,7 @@ onMounted(async () => {
 }
 
 .main__hero__wrap__text {
-    color:#fff;
+    color: #fff;
     font-size: 24px;
 }
 
@@ -140,6 +175,7 @@ onMounted(async () => {
     font-size: 32px;
     text-transform: uppercase;
 }
+
 .main__nav {
     width: 100%;
     height: 40px;
@@ -242,9 +278,9 @@ onMounted(async () => {
 .main__content {
     display: flex;
     align-items: center;
-    margin: 30px auto; 
-    max-width: 1400px; 
-    padding: 60px 10vh; 
+    margin: 30px auto;
+    max-width: 1400px;
+    padding: 60px 10vh;
 }
 
 .main__content__wrap {
@@ -281,17 +317,55 @@ onMounted(async () => {
     display: flex;
     align-items: center;
 }
+
 .main__content__wrap__link__textWrap__text {
     color: #5c5c5c;
     text-decoration: none;
 }
 
+.main__addUser {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 10vh;
+}
+
+.main__addUser__wrap {
+    max-width: 800px;
+    height: auto;
+}
+
+.main__addUser__wrap__form {
+    padding: 20px 40px;
+    border-radius: 6px;
+    box-shadow: 0 2px 32px 0 rgba(0, 0, 0, .14);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.main__addUser__wrap__form__submit {
+    outline: 1px solid #027fc1;
+    border: none;
+    border-radius: 3px;
+    background-color: #fff;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.main__addUser__wrap__form__submit:hover {
+    background-color: #027fc1;
+    color: #fff;
+}
+
 @media screen and (max-width: 1345px) {
     .main__hero::before {
 
-    background-position-y: 25%;
+        background-position-y: 25%;
 
-}
+    }
 }
 
 @media screen and (max-width: 910px) {
@@ -315,5 +389,4 @@ onMounted(async () => {
     .main__content__wrap__link {
         width: 220px;
     }
-}
-</style>
+}</style>
