@@ -293,7 +293,7 @@ select option:hover {
 .main__nav {
     width: 100%;
     height: 40px;
-    background-color: #f3f3f3;
+    background-color: #027fc1;
 }
 
 .main__nav__wrap {
@@ -314,11 +314,11 @@ select option:hover {
     text-decoration: none;
     vertical-align: middle;
     height: 100%;
-    color: #5c5c5c;
+    color: #fff;
 }
 
 .main__nav__wrap__ul__li:hover a {
-    color: #353535;
+    color: #dadada;
 }
 
 .main__a {
