@@ -1,0 +1,22 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "@types/node": "^18.17.3",
+    "nuxt": "^3.6.5",
+    "vue-i18n": "^9.2.2"
+  },
+  "dependencies": {
+    "@nuxtjs/i18n": "^7.3.1",
+    "axios": "^1.5.0",
+    "i18n": "^0.15.1"
+  }
+}
